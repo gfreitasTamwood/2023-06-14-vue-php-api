@@ -17,7 +17,7 @@ class EmployeeDAO {
     }
 
     public static function insertEmployee(Employee $newEmployee) {
-        $sql = "INSERT INTO employee (first_name,last_name,email,department,avatar) VALUES (:fName,:lName,:email,:avatar)";
+        $sql = "INSERT INTO employee (first_name,last_name,email,department,avatar) VALUES (:fName,:lName,:email,:department,:avatar)";
 
         self::$db->query($sql);
         self::$db->bind(":fName",$newEmployee->getFirstName());
