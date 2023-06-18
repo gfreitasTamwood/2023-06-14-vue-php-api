@@ -29,4 +29,30 @@ class EmployeeConverter {
             return $stdObjectList;
         }
     }
+
+    //To post into Database
+    public static function convertToObj($stdObject) {
+        if ( ! is_array($stdObject) ) {
+            $newEmployee = new Employee();
+            $newEmployee->setFirstName($stdObject->firstName);
+            $newEmployee->setLastName($stdObject->lastName);
+            $newEmployee->setEmail($stdObject->email);
+            $newEmployee->setDepartment($stdObject->department);
+            $newEmployee->setAvatar($stdObject->avatar);
+            
+            return $newEmployee;
+        } else {
+            $employeeList = [];
+            foreach($stdObject as $newstdObject) {
+                $newEmployee = new Employee();
+                $newEmployee->setFirstName($newstdObject->firstName);
+                $newEmployee->setLastName($newstdObject->lastName);
+                $newEmployee->setEmail($newstdObject->email);
+                $newEmployee->setDepartment($newstdObject->department);
+                $newEmployee->setAvatar($newstdObject->avatar);
+                $employeeList[] = $newEmployee;
+            }
+            return $employeeList;
+        }
+    }
 }
