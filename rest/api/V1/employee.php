@@ -11,13 +11,11 @@ require_once("../../../inc/Utilities/EmployeeConverter.class.php");
 EmployeeDAO::startDb();
 
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET,POST,HEAD,OPTIONS,POST,PUT ");
 header('Content-Type: application/json; charset=utf-8');
 
-$method = $_SERVER["REQUEST_METHOD"];
 
-$fileHandle = fopen("../../../data/data_1.txt","w+");
-fwrite($fileHandle,$method);
-fclose($fileHandle);
+$method = $_SERVER["REQUEST_METHOD"];
 
 switch($method) {
     case "GET":
@@ -28,9 +26,10 @@ switch($method) {
             );
     break;
     case "POST":
-        $fileHandle = fopen("../../../data/data.txt","w");
-        fwrite($fileHandle,var_dump($_POST));
-        fclose($fileHandle);
-        Location("http://localhost:8080");
+        $data = json_decode(file_get_contents('php://input'));
+        EmployeeDAO::insertEmployee(
+            EmployeeConverter::convertToObj($data)
+        );
+        header("Location: http://localhost:8080");
     break;
 }
