@@ -7,6 +7,7 @@
             <th scope="col">Last Name</th>
             <th scope="col">Email</th>
             <th scope="col">Department</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -26,6 +27,11 @@
             <td>
               {{ employee.department }}
             </td>
+            <td>
+              <button type="button" class="btn btn-danger" @click="deleteData(employee.id)">
+                <span>Delete</span>
+              </button>
+            </td>
           </tr>
         </tbody>
     </table>
@@ -38,8 +44,20 @@ export default {
     props: {
       employees: []
     },
-    setup(props) {
-      console.log(props);
-    } 
+    methods: {
+      async deleteData(id) {
+        try {
+          await fetch(
+            "http://localhost:80/class-03/src/api/rest/api/V1/employee.php",
+            {
+              method: "DELETE",
+              body: JSON.stringify(id)
+            }
+          ).then((response) => response.text());
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
 }
 </script>
