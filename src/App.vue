@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       employees: [],
-      employeeApi: "http://localhost:80/vue-class-03/rest/api/V1/employee.php",
+      employeeApi: "http://localhost:80/class-03/src/api/rest/api/V1/employee.php",
       employeeObj: {
         firstName: "",
         lastName: "",
