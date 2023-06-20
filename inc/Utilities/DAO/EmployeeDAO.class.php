@@ -8,7 +8,7 @@ class EmployeeDAO {
     }
 
     public static function getAllEmployees() {
-        $sql = "SELECT * FROM employee";
+        $sql = "SELECT * FROM employee ORDER BY id DESC";
 
         self::$db->query($sql);
         self::$db->execute();
@@ -28,5 +28,16 @@ class EmployeeDAO {
 
         self::$db->execute();
         return self::$db->lastInsertId();
+    }
+
+    public static function deleteEmployee(int $id) {
+        $sql = "DELETE FROM employee WHERE id = :id";
+        
+        self::$db->query($sql);
+        self::$db->bind(":id", $id);
+
+        self::$db->execute();
+
+        return self::$db->rowCount();
     }
 }
