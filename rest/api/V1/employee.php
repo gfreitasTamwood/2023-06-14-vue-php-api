@@ -11,7 +11,7 @@ require_once("../../../inc/Utilities/EmployeeConverter.class.php");
 EmployeeDAO::startDb();
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET,POST,HEAD,OPTIONS,POST,PUT ");
+header("Access-Control-Allow-Methods: GET,POST,HEAD,OPTIONS,POST,PUT,DELETE ");
 header('Content-Type: application/json; charset=utf-8');
 
 
@@ -31,5 +31,12 @@ switch($method) {
             EmployeeConverter::convertToObj($data)
         );
         header("Location: http://localhost:8080");
+    break;
+
+    case "DELETE":
+        $employee = json_decode(file_get_contents('php://input'));
+        EmployeeDAO::deleteEmployee($employee);
+        echo "Employee Deleted!";
+        // header("Location: http://localhost:8080");
     break;
 }
